@@ -3,6 +3,7 @@ syntax = "proto2";
 message Order {
   required Task task = 1;
   required Resource resource = 2;
+  optional string order_id = 3;
 }
 
 message Task {
@@ -18,12 +19,7 @@ message Resource {
   	required int32 time_durability = 2;
 }
 
-message OrderId {
-	required int32 order_id = 1;
-}
-
 message StatusMsg {
-	required OrderId order_id = 1;
 	enum StatusType {
 	    DONE = 0;
 	    UNDONE = 1;
