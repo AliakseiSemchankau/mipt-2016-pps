@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
-from classes.order_scheduler_pb2 import *
-from classes.computing_system_scheduler_pb2 import *
+from order_scheduler_pb2 import *
+from computing_system_scheduler_pb2 import *
 from json import loads
 from sys import argv
 from uuid import uuid4 as uuid
@@ -37,12 +37,12 @@ def sendSubTask():
         abort(res.code)
     return resp.content
 
-def @app.route('/info')
+@app.route('/info')
 def getInfo():
     resp  = requests.get(SYSTEM_ADDRESS + '/info')
     return resp.content
 
-def @app.route('/notify', methods=['POST'])
+@app.route('/notify', methods=['POST'])
 def onSubTaskCompletion():
     resp = requests.post(ALGORITHM_ADDRESS + '/send_subtask', data=request.get_data())
     if not resp.ok:
