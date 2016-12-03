@@ -1,0 +1,6 @@
+{
+    "algorithm_address" : "0.0.0.0:8111",
+    "order_address" : "0.0.0.0:8112",
+    "system_address" : "0.0.0.0:8112",
+    "scheduler_address" : "0.0.0.0:8112"
+}
