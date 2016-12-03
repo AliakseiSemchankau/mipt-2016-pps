@@ -6,14 +6,30 @@ message Order {
 }
 
 message Task {
-	repeated SubTask sub_tasks = 3;
+	repeated SubTask sub_tasks = 1;
 }
 
 message SubTask {
-	required string url = 4;
+	required string url = 1;
 }
 
 message Resource {
-	required int32 processors_count = 5;
-  	required int32 time_durability = 6;
+	required int32 processors_count = 1;
+  	required int32 time_durability = 2;
 }
+
+message OrderId {
+	required int32 order_id = 1;
+}
+
+message StatusMsg {
+	required OrderId order_id = 1;
+	enum StatusType {
+	    DONE = 0;
+	    UNDONE = 1;
+	    FAILED = 2;
+  	}
+  	required StatusType status = 2;
+  	optional string result = 3;
+}
+
