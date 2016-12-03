@@ -1,0 +1,60 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "stand.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+  
+   <nav class="navbar navbar-inverse navbar-static-top">
+       <div class="container">
+           <div class="navbar-header">
+               <a class="navbar-brand" href="#">Resursoved</a>
+           </div>
+        </div>
+  </nav>
+
+
+   <div  class="panel panel-info">
+       <div class="panel-body">
+           <div class="col-md-6" >
+               <form class="form form-horizontal" action="" method="post" name="similars">
+                   {{order_form.hidden_tag()}}
+                   <p>
+                        <h3>Enter your sub tasks urls:</h3>
+                        {{ order_form.sub_tasks_urls(size=60) }}<br>
+                   </p>
+                   <p>
+                        <h3>Number of processors:</h3>
+                        {{ order_form.processors_count }}
+                   </p>
+                   <p>
+                        <h3>Time duration:</h3>
+                        {{ order_form.time_durability }}<br>
+                   </p>
+                   <p><input type="submit" class="btn btn-primary" value="send task!"></p>
+               </form>
+
+                {% if order_id %}
+
+                    <p>
+                    <h2> Success! Your order id is {{ order_id }} </h2>
+                    </p>
+                
+                {% endif %}
+           </div>
+       </div>
+    </div>
+  
+
+
+
+
+{%- endblock %}
