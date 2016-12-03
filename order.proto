@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+message Order {
+  required Task task = 1;
+  required Resource resource = 2;
+}
+
+message Task {
+	repeated SubTask sub_tasks = 3;
+}
+
+message SubTask {
+	required string url = 4;
+}
+
+message Resource {
+	required int32 processors_count = 5;
+  	required int32 time_durability = 6;
+}
