@@ -1,0 +1,21 @@
+syntax = "proto2";
+import public "order_scheduler.proto";
+
+message SubTaskOrder {
+	required OrderId order_id = 1;
+	required SubTask sub_task = 2;
+	required int32 cluster_id = 3;
+}
+
+message ComputingSystemMsg {
+	repeated ClusterMsg clusters = 1;
+}
+
+message ClusterMsg {
+	repeated ProcessorMsg processors = 1;
+}
+
+message ProcessorMsg {
+	required int32 power = 1;
+	required int32 reserved_time = 2;
+}
