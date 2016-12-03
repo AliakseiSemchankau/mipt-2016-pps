@@ -51,9 +51,9 @@ def onSubTaskCompletion():
 
 if __name__ == '__main__':
     conf = loads(open(argv[1]).read())
-    ALGORITHM_ADDRESS = conf['algorithm_address']
-    ORDER_ADDRESS = conf['order_address']
-    SYSTEM_ADDRESS = conf['system_address']
+    ALGORITHM_ADDRESS = 'http://' + conf['algorithm_address']
+    ORDER_ADDRESS = 'http://' + conf['order_address']
+    SYSTEM_ADDRESS = 'http://' + conf['system_address']
     SCHEDULER_ADDRESS = conf['scheduler_address']
     addr = SCHEDULER_ADDRESS.split(':')
     conf = {'host': addr[0]}
