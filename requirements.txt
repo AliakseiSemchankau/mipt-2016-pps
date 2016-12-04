@@ -4,3 +4,8 @@ pip install flask
 pip install flask_bootstrap
 pip install flask-wtf
 pip install flask_nav
+pip install requests
+
+run algorithm/run.py:
+python3 algorithm/run.p conf
+
