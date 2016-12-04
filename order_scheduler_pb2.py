@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='order_scheduler.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x15order_scheduler.proto\"K\n\x05Order\x12\x13\n\x04task\x18\x01 \x02(\x0b\x32\x05.Task\x12\x1b\n\x08resource\x18\x02 \x02(\x0b\x32\t.Resource\x12\x10\n\x08order_id\x18\x03 \x01(\t\"#\n\x04Task\x12\x1b\n\tsub_tasks\x18\x01 \x03(\x0b\x32\x08.SubTask\"\x16\n\x07SubTask\x12\x0b\n\x03url\x18\x01 \x02(\t\"=\n\x08Resource\x12\x18\n\x10processors_count\x18\x01 \x02(\x05\x12\x17\n\x0ftime_durability\x18\x02 \x02(\x05\"r\n\tStatusMsg\x12%\n\x06status\x18\x02 \x02(\x0e\x32\x15.StatusMsg.StatusType\x12\x0e\n\x06result\x18\x03 \x01(\t\".\n\nStatusType\x12\x08\n\x04\x44ONE\x10\x00\x12\n\n\x06UNDONE\x10\x01\x12\n\n\x06\x46\x41ILED\x10\x02')
+  serialized_pb=_b('\n\x15order_scheduler.proto\"K\n\x05Order\x12\x13\n\x04task\x18\x01 \x02(\x0b\x32\x05.Task\x12\x1b\n\x08resource\x18\x02 \x02(\x0b\x32\t.Resource\x12\x10\n\x08order_id\x18\x03 \x01(\t\"#\n\x04Task\x12\x1b\n\tsub_tasks\x18\x01 \x03(\x0b\x32\x08.SubTask\"\x16\n\x07SubTask\x12\x0b\n\x03url\x18\x01 \x02(\t\"=\n\x08Resource\x12\x18\n\x10processors_count\x18\x01 \x02(\x05\x12\x17\n\x0ftime_durability\x18\x02 \x02(\x05\"\x84\x01\n\tStatusMsg\x12%\n\x06status\x18\x02 \x02(\x0e\x32\x15.StatusMsg.StatusType\x12\x0e\n\x06result\x18\x03 \x01(\t\x12\x10\n\x08order_id\x18\x04 \x01(\t\".\n\nStatusType\x12\x08\n\x04\x44ONE\x10\x00\x12\n\n\x06UNDONE\x10\x01\x12\n\n\x06\x46\x41ILED\x10\x02')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -46,8 +46,8 @@ _STATUSMSG_STATUSTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=294,
-  serialized_end=340,
+  serialized_start=313,
+  serialized_end=359,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSMSG_STATUSTYPE)
 
@@ -218,6 +218,13 @@ _STATUSMSG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='order_id', full_name='StatusMsg.order_id', index=2,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -231,8 +238,8 @@ _STATUSMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=226,
-  serialized_end=340,
+  serialized_start=227,
+  serialized_end=359,
 )
 
 _ORDER.fields_by_name['task'].message_type = _TASK

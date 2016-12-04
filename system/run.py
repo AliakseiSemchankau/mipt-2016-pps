@@ -1,11 +1,12 @@
 from flask import Flask, request, abort
 from order_scheduler_pb2 import *
-from computing_system_scheduler import *
+from computing_system_scheduler_pb2 import *
 from json import loads
 from sys import argv
 import threading
 import requests
 import time
+import random
 app = Flask(__name__)
 
 SYSTEM_ADDRESS=''
@@ -21,9 +22,9 @@ def getResult(order_id):
     if order_id in results:
         msg = StatusMsg()
         if results[order_id] is None:
-            msg.status = StatusMsg.StatusType.UNDONE
+            msg.status = StatusMsg.UNDONE
         else:
-            msg.status = StatusMsg.StatusType.DONE
+            msg.status = StatusMsg.DONE
             msg.result = results[order_id]
         return msg.SerializeToString()
     else:
@@ -39,6 +40,7 @@ def sendSubTask():
     results[order.order_id] = None
     have_tasks.notify()
     have_tasks.release()
+    return ''
 
 @app.route('/info')
 def getInfo():
@@ -56,18 +58,20 @@ def ComputeResults():
         have_tasks.acquire()
         task = None
         while len(tasks_to_execute) == 0:
-            task = tasks_to_execute.pop()
+            have_tasks.wait()
+        task = tasks_to_execute.pop()
         have_tasks.release()
 
         #stub for computing task
         print('computing: ' + task.sub_task.url)
-        time.sleep(rand.randint(2, 4))
-        results[task.order_id] = str(rand.randint(20))
+        time.sleep(random.randint(2, 4))
+        results[task.order_id] = str(random.randint(1, 20))
 
         msg = StatusMsg()
-        msg.status = StatusMsg.StatusType.DONE
+        msg.status = StatusMsg.DONE
+        msg.order_id = task.order_id
         try:
-            requests.put(SCHEDULER_ADDRESS + '/notify', data=msg.SerializeToString())
+            requests.post(SCHEDULER_ADDRESS + '/notify', data=msg.SerializeToString())
         except Exception as e:
             print(e)
 
