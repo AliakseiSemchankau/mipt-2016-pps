@@ -25,7 +25,7 @@ def addTask():
 
 @app.route("/get/<order_id>")
 def getResult(order_id):
-    resp = requests.post(SYSTEM_ADDRESS + '/get/' + order_id)
+    resp = requests.get(SYSTEM_ADDRESS + '/get/' + order_id)
     if not resp.ok:
         abort(resp.status_code)
     return resp.content
