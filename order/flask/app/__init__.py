@@ -8,5 +8,3 @@ Bootstrap(app)
 
 # We initialize the navigation as well
 nav.init_app(app)
-
-from app import views

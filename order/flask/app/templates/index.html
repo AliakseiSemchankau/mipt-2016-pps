@@ -41,15 +41,17 @@
                    </p>
                    <p><input type="submit" class="btn btn-primary" value="send task!"></p>
                </form>
-
-                {% if order_id %}
-
-                    <p>
+            </div>
+            
+            <div class="col-md-9" >
+              {% if order_id %}
+                  <p>
                     <h2> Success! Your order id is {{ order_id }} </h2>
-                    </p>
+                  </p>
                 
-                {% endif %}
-           </div>
+              {% endif %}
+            </div>
+           
        </div>
     </div>
   

@@ -47,9 +47,8 @@ def sendTasks():
 
 if __name__ == '__main__':
     conf = loads(open(argv[1]).read())
-    ALGORITHM_ADDRESS = conf['algorithm_address']
     SCHEDULER_ADDRESS = 'http://' + conf['scheduler_address']
-    addr = ALGORITHM_ADDRESS.split(':')
+    addr = conf['algorithm_address'].split(':')
     conf = {'host': addr[0]}
     if len(addr) > 1:
         conf['port'] = addr[1]

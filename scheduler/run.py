@@ -27,14 +27,14 @@ def addTask():
 def getResult(order_id):
     resp = requests.post(SYSTEM_ADDRESS + '/get/' + order_id)
     if not resp.ok:
-        abort(res.code)
+        abort(resp.status_code)
     return resp.content
 
 @app.route('/send_subtask', methods=['POST'])
 def sendSubTask():
     resp = requests.post(SYSTEM_ADDRESS + '/send_subtask', data=request.get_data())
     if not resp.ok:
-        abort(res.code)
+        abort(resp.status_code)
     return resp.content
 
 @app.route('/info')
@@ -46,16 +46,16 @@ def getInfo():
 def onSubTaskCompletion():
     resp = requests.post(ALGORITHM_ADDRESS + '/send_subtask', data=request.get_data())
     if not resp.ok:
-        abort(res.code)
+        abort(res.status_code)
     return resp.content
 
 if __name__ == '__main__':
     conf = loads(open(argv[1]).read())
-    ALGORITHM_ADDRESS = conf['algorithm_address']
-    ORDER_ADDRESS = conf['order_address']
-    SYSTEM_ADDRESS = conf['system_address']
-    SCHEDULER_ADDRESS = conf['scheduler_address']
-    addr = SCHEDULER_ADDRESS.split(':')
+    ALGORITHM_ADDRESS = 'http://' + conf['algorithm_address']
+    ORDER_ADDRESS = 'http://' + conf['order_address']
+    SYSTEM_ADDRESS = 'http://' + conf['system_address']
+
+    addr = conf['scheduler_address'].split(':')
     conf = {'host': addr[0]}
     if len(addr) > 1:
         conf['port'] = addr[1]
