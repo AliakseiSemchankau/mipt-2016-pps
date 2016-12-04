@@ -20,7 +20,7 @@ def addTask():
     order.order_id = order_id
     resp = requests.post(ALGORITHM_ADDRESS + '/add_task', data=order.SerializeToString())
     if not resp.ok:
-        abort(res.code)
+        abort(resp.status_code)
     return order_id
 
 @app.route("/get/<order_id>")
@@ -40,11 +40,14 @@ def sendSubTask():
 @app.route('/info')
 def getInfo():
     resp  = requests.get(SYSTEM_ADDRESS + '/info')
+    if not resp.ok:
+        abort(resp.status_code)
     return resp.content
 
 @app.route('/notify', methods=['POST'])
 def onSubTaskCompletion():
-    resp = requests.post(ALGORITHM_ADDRESS + '/send_subtask', data=request.get_data())
+    resp = requests.post(ALGORITHM_ADDRESS + '/notify', data=request.get_data())
+    print('notify ' + ALGORITHM_ADDRESS + '/notify')
     if not resp.ok:
         abort(res.status_code)
     return resp.content
@@ -52,7 +55,6 @@ def onSubTaskCompletion():
 if __name__ == '__main__':
     conf = loads(open(argv[1]).read())
     ALGORITHM_ADDRESS = 'http://' + conf['algorithm_address']
-    ORDER_ADDRESS = 'http://' + conf['order_address']
     SYSTEM_ADDRESS = 'http://' + conf['system_address']
 
     addr = conf['scheduler_address'].split(':')
