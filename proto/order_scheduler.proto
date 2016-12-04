@@ -1,31 +1,32 @@
 syntax = "proto2";
 
 message Order {
-  required Task task = 1;
-  required Resource resource = 2;
-  optional string order_id = 3;
+    required Task task = 1;
+    required Resource resource = 2;
+    optional string order_id = 3;
 }
 
 message Task {
-	repeated SubTask sub_tasks = 1;
+    repeated SubTask sub_tasks = 1;
 }
 
 message SubTask {
-	required string url = 1;
+    required string url = 1;
 }
 
 message Resource {
-	required int32 processors_count = 1;
-  	required int32 time_durability = 2;
+    required int32 processors_count = 1;
+    required int32 time_durability = 2;
 }
 
 message StatusMsg {
-	enum StatusType {
-	    DONE = 0;
-	    UNDONE = 1;
-	    FAILED = 2;
-  	}
-  	required StatusType status = 2;
-  	optional string result = 3;
+    enum StatusType {
+        DONE = 0;
+        UNDONE = 1;
+        FAILED = 2;
+    }
+    required StatusType status = 2;
+    optional string result = 3;
+    optional string order_id = 4;
 }
 
