@@ -25,8 +25,17 @@
    <div  class="panel panel-info">
        <div class="panel-body">
             <div class="col-md-6" >
+              {% if money %}
+                 <p>
+                    <h3> Your money : {{money}} </h3>
+                 </p>
+              {% endif %}
                <form class="form form-horizontal" action="" method="post" name="similars">
                    {{order_form.hidden_tag()}}
+                   <p>
+                        <h3>Enter your login:</h3>
+                        {{ order_form.user_login(size=60) }}<br>
+                   </p>
                    <p>
                         <h3>Enter your sub tasks urls:</h3>
                         {{ order_form.sub_tasks_urls(size=60) }}<br>
@@ -50,6 +59,13 @@
                     </p>
                   
                 {% endif %}
+
+                {% if rejected %}
+                    <p>
+                      <h3> Rejected! Your don't have enough money.  </h3>
+                    </p>
+                  
+                {% endif %}
               </div>
 
             </div>
@@ -57,6 +73,10 @@
             <div class="col-md-6" >
                <form class="form form-horizontal" action="" method="post" name="similars">
                    {{result_form.hidden_tag()}}
+                   <p>
+                        <h3>Insert your login:</h3>
+                        {{ result_form.user_login(size=60) }}<br>
+                   </p>
                    <p>
                         <h3>Insert order id to get result:</h3>
                         {{ result_form.order_id(size=60) }}<br>
