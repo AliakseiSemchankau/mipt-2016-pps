@@ -39,22 +39,44 @@
                         <h3>Time duration:</h3>
                         {{ order_form.time_durability }}<br>
                    </p>
-                   <p><input type="submit" class="btn btn-primary" value="send task!"></p>
+                   <p><input type="submit" class="btn btn-primary" value="SEND!"></p>
                </form>
 
-            <div class="col-md-9" >
-              {% if order_id %}
-                  <p>
-                    <h3> Success! Your order id is  </h3>
-                    <h3> {{ order_id }} </h3>
-                  </p>
-                
-              {% endif %}
-            </div>
+              <div class="col-md-6" >
+                {% if order_id %}
+                    <p>
+                      <h3> Success! Your order id is  </h3>
+                      <h3> {{ order_id }} </h3>
+                    </p>
+                  
+                {% endif %}
+              </div>
 
             </div>
             
-      
+            <div class="col-md-6" >
+               <form class="form form-horizontal" action="" method="post" name="similars">
+                   {{result_form.hidden_tag()}}
+                   <p>
+                        <h3>Insert order id to get result:</h3>
+                        {{ result_form.order_id(size=60) }}<br>
+                   </p>
+                   <p><input type="submit" class="btn btn-primary" value="GET!"></p>
+               </form>
+
+              <div class="col-md-6" >
+                {% if task_status %}
+                    <p>
+                      <h3> INFO for that task:  </h3>
+                      <h3> Status: {{ task_status }} </h3>
+                      <h3> Result: {{ task_result }} </h3>
+                    </p>
+                  
+                {% endif %}
+              </div>
+
+            </div>
+
            
        </div>
     </div>
