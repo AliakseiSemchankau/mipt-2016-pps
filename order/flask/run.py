@@ -7,9 +7,9 @@ from order_scheduler_pb2 import *
 from computing_system_scheduler_pb2 import *
 import requests
 
-from app import app
+from order.flask.app import app
 
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import TextField, BooleanField, IntegerField
 from wtforms.validators import Required
 
