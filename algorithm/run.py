@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
-from order_scheduler_pb2 import *
-from computing_system_scheduler_pb2 import *
+from messages.order_scheduler_pb2 import *
+from messages.computing_system_scheduler_pb2 import *
 import sys
 from json import loads
 from sys import argv

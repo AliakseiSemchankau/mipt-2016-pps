@@ -3,8 +3,8 @@ from json import loads
 from sys import argv
 from flask import Flask, request, abort
 from flask import render_template, flash, redirect
-from order_scheduler_pb2 import *
-from computing_system_scheduler_pb2 import *
+from messages.order_scheduler_pb2 import *
+from messages.computing_system_scheduler_pb2 import *
 import requests
 
 from order.flask.app import app
