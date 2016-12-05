@@ -46,7 +46,7 @@ def get_result(order_id):
 
 	resp = requests.get(SCHEDULER_ADDRESS + '/get/' + order_id)
 	result = StatusMsg()
-	result.ParseFromString(resp.get_data())
+	result.ParseFromString(resp.content)
 
 	return result
 

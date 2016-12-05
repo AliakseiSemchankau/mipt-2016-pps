@@ -15,6 +15,7 @@ ALGORITHM_ADDRESS=''
 SCHEDULER_ADDRESS=''
 
 pending_orders = []
+pending_sub_tasks = []
 
 
 @app.route("/add_task", methods=['POST'])
@@ -25,25 +26,48 @@ def addTask():
     return order.order_id
 
 
-def sendTasks():
+def sendTasks(sub_task_id=""):
+    global pending_sub_tasks
     while True:
         try:
-            while len(pending_orders) == 0:
-                time.sleep(random.randint(1, 2))
-            order = pending_orders.pop()
-            order_id = order.order_id
-            sub_tasks = order.task.sub_tasks
-            cluster_id = random.randint(1, 10)
-            for sub_task in sub_tasks:
+            if len(pending_sub_tasks) != 0:
+                sub_task = pending_sub_tasks.pop()
+                cluster_id = random.randint(1, 10)
+                sub_task_order = SubTaskOrder()
+                sub_task_order.order_id = sub_task_id
+                sub_task_order.sub_task.CopyFrom(sub_task)
+                sub_task_order.cluster_id = cluster_id
+                resp = requests.post(SCHEDULER_ADDRESS + '/send_subtask', data=sub_task_order.SerializeToString())
+                exit_status = resp.content
+                print("Send subtask " + str(sub_task_order))
+                return exit_status
+            elif len(pending_orders) != 0:
+                order = pending_orders.pop()
+                order_id = order.order_id
+                sub_tasks = list(order.task.sub_tasks)
+                sub_task = sub_tasks.pop()
+                pending_sub_tasks += sub_tasks
+                cluster_id = random.randint(1, 10)
                 sub_task_order = SubTaskOrder()
                 sub_task_order.order_id = order_id
                 sub_task_order.sub_task.CopyFrom(sub_task)
                 sub_task_order.cluster_id = cluster_id
                 resp = requests.post(SCHEDULER_ADDRESS + '/send_subtask', data=sub_task_order.SerializeToString())
-            return resp.content
+                exit_status = resp.content
+                print("Send subtask " + str(sub_task_order))
+                return exit_status
         except Exception as e:
             print(e)
 
+
+@app.route('/notify', methods=['POST'])
+def onSubTaskCompletion():
+    status_msg = StatusMsg()
+    status_msg.ParseFromString(request.get_data())
+    t = threading.Thread(target=sendTasks, args=(status_msg.order_id,))
+    t.daemon = True
+    t.start()
+    return ""
 
 if __name__ == '__main__':
     conf = loads(open(argv[1]).read())
@@ -55,4 +79,6 @@ if __name__ == '__main__':
     t = threading.Thread(target=sendTasks)
     t.daemon = True
     t.start()
+    order = Order()
+    pending_orders.append(order)
     app.run(**conf)
