@@ -1,6 +1,6 @@
 {
-    "algorithm_address" : "192.168.0.109:8111",
-    "system_address" : "192.168.0.106:8113",
-    "scheduler_address" : "192.168.0.106:8114",
-    "order_address" : "192.168.0.106:8114"
+    "algorithm_address" : "0.0.0.0:8111",
+    "system_address" : "0.0.0.0:8113",
+    "scheduler_address" : "0.0.0.0:8114",
+    "order_address" : "0.0.0.0:8115"
 }
