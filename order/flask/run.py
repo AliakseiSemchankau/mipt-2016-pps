@@ -76,8 +76,14 @@ def index():
 
         cost = processors_count * time_durability
 
-        if money < cost:
-            kwargs['money'] = money
+        try:
+            if money < cost:
+                kwargs['money'] = money
+                kwargs['rejected'] = True
+                conn.close()
+                return render_template("index.html", **kwargs)
+        except Exception:
+            kwargs['money'] = 'CANT GET MONEY AMOUNT FOR THIS USER'
             kwargs['rejected'] = True
             conn.close()
             return render_template("index.html", **kwargs)
